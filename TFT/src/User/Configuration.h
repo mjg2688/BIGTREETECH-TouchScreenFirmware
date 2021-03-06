@@ -34,7 +34,7 @@
  *
  * Options: [2400: 0, 9600: 1, 19200: 2, 38400: 3, 57600: 4, 115200: 5, 250000: 6, 500000: 7, 1000000: 8]
  */
-#define BAUDRATE 5  // Default: 5
+#define BAUDRATE 6  // Default: 5
 
 /**
  * Default Primary Language (for Touch-Mode only)
@@ -59,7 +59,7 @@
  */
 #define TITLE_BACKGROUND_COLOR      1  // Title background color (Default: 1)
 #define BACKGROUND_COLOR            1  // Background color (Default: 1)
-#define FONT_COLOR                  0  // Font foreground color (Default: 0)
+#define FONT_COLOR                  7  // Font foreground color (Default: 0)
 #define REMINDER_FONT_COLOR         2  // Reminder font color, such as: "No print attached", "Busy processing", etc. (Default: 2)
 #define VOLUME_REMINDER_FONT_COLOR  5  // Volume reminder font color, such as: "Card inserted", "Card removed" (Default: 5)
 #define STATUS_XYZ_BG_COLOR        15  // Background color for X Y Z position display in Status Screen. (Default: 15)
@@ -93,7 +93,7 @@
  *          12: DARKBLUE,  13: DARKGREEN,  14: GRAY,    15: DARKGRAY
  */
 #define MARLIN_BKCOLOR 1  // Default: 1
-#define MARLIN_FNCOLOR 0  // Default: 0
+#define MARLIN_FNCOLOR 7  // Default: 0
 
 // Text displayed at the top of the TFT in Marlin Mode
 #define MARLIN_BANNER_TEXT "Marlin Mode"  // Default: "Marlin Mode"
@@ -107,7 +107,7 @@
  * Options: 0: Disabled (RECOMMENDED FOR TFT24)
  *          1: Enabled
  */
-#define MARLIN_MODE_FULLSCREEN 0  // Default: 0
+#define MARLIN_MODE_FULLSCREEN 1  // Default: 0
 
 /**
  * Keep Serial always On (ONLY SUPPORTED ON TFT24 V1.1, TFT35 V3.0, AND TFT28 V3.0)
@@ -160,7 +160,7 @@
  *  2: FAN_TYPE_CTRL_I  - Controller fan idle speed  (Check Marlin gcode - M710)
  *  8: FAN_TYPE_UNKNOWN - Unknown / Not defined
  */
-#define FAN_MAX_PWM      {       255,       255,       255,       255,       255,       255,       255,       255 };
+#define FAN_MAX_PWM      {       255,       128,       255,       255,       255,       255,       255,       255 };
 #define FAN_DISPLAY_ID   {      "F0",      "F1",      "F2",      "F3",      "F4",      "F5",     "CtL",     "CtI" };
 #define FAN_CMD          { "M106 P0", "M106 P1", "M106 P2", "M106 P3", "M106 P4", "M106 P5",    "M710",    "M710" };
 #define FAN_TYPE         {         0,         0,         0,         0,         0,         0,         1,         2 };
@@ -192,7 +192,7 @@
 #define Z_MIN_POS   0
 #define X_MAX_POS 235
 #define Y_MAX_POS 235
-#define Z_MAX_POS 250
+#define Z_MAX_POS 210
 
 // Pause Settings
 #define NOZZLE_PAUSE_RETRACT_LENGTH               15  // (mm)
@@ -208,7 +208,7 @@
  * Manual Leveling
  * Move to four corner points to Leveling manually (Point 1, Point 2, Point 3, Point 4).
  */
-#define LEVELING_EDGE_DISTANCE        20  // Inset distance from bed's edge for calculating leveling point location
+#define LEVELING_EDGE_DISTANCE        25  // Inset distance from bed's edge for calculating leveling point location
 #define LEVELING_POINT_Z            0.2f  // Z-axis position when nozzle stays for leveling
 #define LEVELING_POINT_MOVE_Z      10.0f  // Z-axis position when nozzle move to next point
 #define LEVELING_POINT_XY_FEEDRATE  6000  // (mm/min) X and Y axes move feedrate
@@ -261,7 +261,7 @@
  *
  * Options: [0: Disabled, 1: Auto-detect, 2: ABL, 3: BBL, 4: UBL, 5: MBL]
  */
-#define ENABLE_BL_VALUE 1  // Default: 1
+#define ENABLE_BL_VALUE 4  // Default: 1
 
 /**
  * TouchMI settings (on ABL menu)
@@ -340,7 +340,7 @@
  *          3: LED_ORANGE,  4: LED_YELLOW,  5: LED_GREEN,
  *          6: LED_BLUE,    7: LED_INDIGO,  8: LED_VIOLET
 */
-#define STARTUP_KNOB_LED_COLOR 1  // Default: 1
+#define STARTUP_KNOB_LED_COLOR 5  // Default: 1
 
 // Keep the LED state in Marlin Mode
 #define KEEP_KNOB_LED_COLOR_MARLIN_MODE
@@ -353,7 +353,7 @@
  *          6: 50 Percent,   7: 60 Percent,   8: 70 Percent,
  *          9: 80 Percent,  10: 90 Percent,  11: 100 Percent
  */
-#define DEFAULT_LCD_BRIGHTNESS       11  // Default: 11
+#define DEFAULT_LCD_BRIGHTNESS       8  // Default: 11
 #define DEFAULT_LCD_IDLE_BRIGHTNESS   3  // Default: 3
 
 /**
@@ -365,7 +365,7 @@
  *          3: 30 Seconds,   4: 60 Seconds,     5: 120 Seconds,
  *          6: 300 Seconds,  7: CUSTOM Seconds
  */
-#define DEFAULT_LCD_IDLE_TIMER  0  // Default: 0
+#define DEFAULT_LCD_IDLE_TIMER  3  // Default: 0
 #define LCD_DIM_CUSTOM_SECONDS (10 * 60)  // Custom value in seconds. This will be used if DEFAULT_LCD_IDLE_TIMER
                                           // is set to 7 (CUSTOM Seconds).
 
