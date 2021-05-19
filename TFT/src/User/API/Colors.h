@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-#include "includes.h"
+#include <stdint.h>
 #include "menu.h"
 
 // Color Definition
@@ -44,24 +44,24 @@ extern "C" {
 
 typedef enum
 {
-LCD_WHITE = 0,
-LCD_BLACK,
-LCD_RED,
-LCD_GREEN,
-LCD_BLUE,
-LCD_CYAN,
-LCD_MAGENTA,
-LCD_YELLOW,
-LCD_ORANGE,
-LCD_PURPLE,
-LCD_LIME,
-LCD_BROWN,
-LCD_DARKBLUE,
-LCD_DARKGREEN,
-LCD_GRAY,
-LCD_DARKGRAY,
-LCD_COLOR_COUNT
-}LCD_COLOR;
+  LCD_WHITE = 0,
+  LCD_BLACK,
+  LCD_RED,
+  LCD_GREEN,
+  LCD_BLUE,
+  LCD_CYAN,
+  LCD_MAGENTA,
+  LCD_YELLOW,
+  LCD_ORANGE,
+  LCD_PURPLE,
+  LCD_LIME,
+  LCD_BROWN,
+  LCD_DARKBLUE,
+  LCD_DARKGREEN,
+  LCD_GRAY,
+  LCD_DARKGRAY,
+  LCD_COLOR_COUNT
+} LCD_COLOR;
 
 extern const uint16_t lcd_colors[LCD_COLOR_COUNT];
 extern const LABEL lcd_color_names[LCD_COLOR_COUNT];
@@ -118,6 +118,21 @@ extern const LABEL lcd_color_names[LCD_COLOR_COUNT];
   #define BTN_ROUND_CORNER  ((LCD_WIDTH / 100) + 0.5)
 
 #endif
+
+// Material Dark
+#define COLORSCHEME1_TERM_GCODE MAT_ORANGE
+#define COLORSCHEME1_TERM_ACK   MAT_LOWWHITE
+#define COLORSCHEME1_TERM_BACK  MAT_DARKSLATE
+
+// Material Light
+#define COLORSCHEME2_TERM_GCODE MAT_ORANGE
+#define COLORSCHEME2_TERM_ACK   MAT_DARKSLATE
+#define COLORSCHEME2_TERM_BACK  MAT_LOWWHITE
+
+// High Contrast
+#define COLORSCHEME3_TERM_GCODE ORANGE
+#define COLORSCHEME3_TERM_ACK   WHITE
+#define COLORSCHEME3_TERM_BACK  BLACK
 
 #ifdef __cplusplus
 }

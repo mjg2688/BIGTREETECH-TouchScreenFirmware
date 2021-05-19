@@ -23,10 +23,8 @@ void babyReDraw(float babystep, float z_offset, bool force_z_offset, bool skip_h
   GUI_POINT point_of = {exhibitRect.x1, exhibitRect.y0 + BYTE_HEIGHT * 2 + LARGE_BYTE_HEIGHT};
 
   setLargeFont(true);
-
   sprintf(tempstr, "% 6.2f", babystep);
   GUI_DispStringRight(point_bs.x, point_bs.y, (uint8_t*) tempstr);
-
   sprintf(tempstr, "% 6.2f", z_offset);
 
   if (force_z_offset)
@@ -35,10 +33,7 @@ void babyReDraw(float babystep, float z_offset, bool force_z_offset, bool skip_h
     GUI_SetColor(infoSettings.font_color);
 
   GUI_DispStringRight(point_of.x, point_of.y, (uint8_t*) tempstr);
-
-  // restore default font color
-  GUI_SetColor(infoSettings.font_color);
-
+  GUI_SetColor(infoSettings.font_color);  // restore default font color
   setLargeFont(false);
 }
 
@@ -46,7 +41,7 @@ void babyReDraw(float babystep, float z_offset, bool force_z_offset, bool skip_h
 float babyMblOffsetSetValue(float value)
 {
   mustStoreCmd("G29 S4 Z%.2f\n", value);
-  mustStoreCmd("M420 V1 T1\n");  // needed by babyMblOffsetGetValue() to retrieve the new value
+  mustStoreCmd("G29 S0\n");  // needed by babyMblOffsetGetValue() to retrieve the new value
   return value;
 }
 
@@ -62,23 +57,26 @@ void menuBabystep(void)
   MENUITEMS babyStepItems = {
     // title
     LABEL_BABYSTEP,
-    // icon                         label
-    {{ICON_DEC,                     LABEL_DEC},
-     {ICON_BACKGROUND,              LABEL_BACKGROUND},
-     {ICON_BACKGROUND,              LABEL_BACKGROUND},
-     {ICON_INC,                     LABEL_INC},
-     {ICON_BACKGROUND,              LABEL_BACKGROUND},
-     {ICON_001_MM,                  LABEL_001_MM},
-     {ICON_RESET_VALUE,             LABEL_RESET},
-     {ICON_BACK,                    LABEL_BACK},}
+    // icon                          label
+    {
+      #ifdef FRIENDLY_Z_OFFSET_LANGUAGE
+        {ICON_NOZZLE_DOWN,             LABEL_DOWN},
+      #else
+        {ICON_DEC,                     LABEL_DEC},
+      #endif
+      {ICON_BACKGROUND,              LABEL_BACKGROUND},
+      {ICON_BACKGROUND,              LABEL_BACKGROUND},
+      #ifdef FRIENDLY_Z_OFFSET_LANGUAGE
+        {ICON_NOZZLE_UP,               LABEL_UP},
+      #else
+        {ICON_INC,                     LABEL_INC},
+      #endif
+      {ICON_BACKGROUND,              LABEL_BACKGROUND},
+      {ICON_001_MM,                  LABEL_001_MM},
+      {ICON_RESET_VALUE,             LABEL_RESET},
+      {ICON_BACK,                    LABEL_BACK},
+    }
   };
-
-  #ifdef FRIENDLY_Z_OFFSET_LANGUAGE
-    babyStepItems.items[0].icon = ICON_NOZZLE_DOWN;
-    babyStepItems.items[0].label.index = LABEL_DOWN;
-    babyStepItems.items[3].icon = ICON_NOZZLE_UP;
-    babyStepItems.items[3].label.index = LABEL_UP;
-  #endif
 
   KEY_VALUES key_num = KEY_IDLE;
   float now_babystep, babystep, orig_babystep;
@@ -134,12 +132,12 @@ void menuBabystep(void)
     {
       // decrease babystep / Z offset
       case KEY_ICON_0:
-        babystep = babystepDecreaseValue(unit);
+        babystep = babystepUpdateValue(unit, -1);
         break;
 
       // increase babystep / Z offset
       case KEY_ICON_3:
-        babystep = babystepIncreaseValue(unit);
+        babystep = babystepUpdateValue(unit, 1);
         break;
 
       // save to EEPROM and apply Z offset
@@ -180,7 +178,7 @@ void menuBabystep(void)
         #if LCD_ENCODER_SUPPORT
           if (encoderPosition)
           {
-            babystep = babystepUpdateValueByEncoder(unit, encoderPosition > 0 ? 1 : -1);
+            babystep = babystepUpdateValue(unit, encoderPosition < 0 ? -1 : 1);
 
             encoderPosition = 0;
           }
